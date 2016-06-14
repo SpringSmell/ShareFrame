@@ -20,13 +20,13 @@ public abstract class ShareActivity extends HttpActivity {
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
         initView();
-        initData();
+        bindData();
         initTitle();
     }
 
     public abstract void initView();
 
-    public abstract void initData();
+    public abstract void bindData();
 
     public abstract void initTitle();
 }

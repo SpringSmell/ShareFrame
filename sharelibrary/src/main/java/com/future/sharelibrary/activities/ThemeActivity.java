@@ -34,6 +34,7 @@ public abstract class ThemeActivity extends AppCompatActivity {
     protected Snackbar mSnackbar;
     protected AlertDialog mAlertDialog;
     protected LoadingPopupWindow mLoadingPopupWindow;
+    protected Toolbar mToolbar;
     /**
      * popupWindow是否可操作
      */
@@ -64,6 +65,7 @@ public abstract class ThemeActivity extends AppCompatActivity {
         super.setContentView(R.layout.app_content);
         appContentView = (FrameLayout) findViewById(R.id.appContent);
         titleContent = (RelativeLayout) findViewById(R.id.titleContent);
+        mToolbar= (Toolbar) findViewById(R.id.titleToolbar);
     }
 
     @Override
@@ -178,9 +180,9 @@ public abstract class ThemeActivity extends AppCompatActivity {
 
     protected void showTitle(boolean isVisible) {
         if (isVisible) {
-            titleContent.setVisibility(View.VISIBLE);
+            mToolbar.setVisibility(View.VISIBLE);
         } else {
-            titleContent.setVisibility(View.GONE);
+            mToolbar.setVisibility(View.GONE);
         }
     }
 

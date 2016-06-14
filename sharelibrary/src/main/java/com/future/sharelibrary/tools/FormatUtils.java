@@ -52,7 +52,7 @@ public class FormatUtils {
      * @param timeStyle
      * @return
      */
-    public String getFormatTime(String currtimeStyle, String time, String timeStyle) {
+    public static String getFormatTime(String currtimeStyle, String time, String timeStyle) {
         try {
             SimpleDateFormat format = new SimpleDateFormat(currtimeStyle);
             java.util.Date date = format.parse(time);
@@ -67,7 +67,7 @@ public class FormatUtils {
      * @param rules 规则(如:0.00保留2位小数)
      * @return string or "" or value
      */
-    public String getTrim(String value, String rules)
+    public static String getTrim(String value, String rules)
     {
         if(value == null || value.length() == 0 || rules == null || rules.length() == 0)
         {
@@ -89,7 +89,7 @@ public class FormatUtils {
      * @param rules
      * @return
      */
-    public String getTrim(double value, String rules) {
+    public static String getTrim(double value, String rules) {
         DecimalFormat df = new DecimalFormat(rules);
         return df.format(value);
     }

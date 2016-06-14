@@ -3,6 +3,10 @@ package com.future.sharelibrary.tools;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.widget.ImageView;
+
+import org.xutils.image.ImageOptions;
+import org.xutils.x;
 
 /**
  * Created by Administrator on 2016/6/6.
@@ -63,5 +67,24 @@ public class ImageUtils {
             }
         }
         return inSampleSize;
+    }
+
+    /**
+     * 显示图片
+     * @param img
+     * @param url
+     */
+    public static void displayImg(ImageView img,String url){
+        x.image().bind(img,url);
+    }
+
+    /**
+     * 显示图片
+     * @param img
+     * @param url
+     * @param options
+     */
+    public static void displayImg(ImageView img, String url, ImageOptions options){
+        x.image().bind(img,url,options);
     }
 }
