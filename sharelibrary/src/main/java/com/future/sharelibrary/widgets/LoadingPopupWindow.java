@@ -42,7 +42,6 @@ public class LoadingPopupWindow extends PopupWindow {
         //强制刷新后拿到宽高
         this.width=contentView.getMeasuredWidth();
         this.height=contentView.getMeasuredHeight();
-        Log.e("TEST", "PopupWindow : width:"+width+" height:"+height );
     }
 
 

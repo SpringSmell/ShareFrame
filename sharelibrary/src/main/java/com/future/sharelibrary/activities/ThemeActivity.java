@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -174,6 +175,7 @@ public abstract class ThemeActivity extends AppCompatActivity {
     protected void setRightView(String content, int icon, View.OnClickListener onClickListener) {
         TextView titleRight = ((TextView) titleContent.findViewById(R.id.titleRight));
         titleRight.setVisibility(View.VISIBLE);
+        titleRight.setText(content);
         titleRight.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(icon), null, null, null);
         titleRight.setOnClickListener(onClickListener);
     }

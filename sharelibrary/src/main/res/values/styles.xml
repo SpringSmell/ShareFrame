@@ -34,4 +34,10 @@
         <item name="android:windowBackground">@color/colorTransparent</item>
     </style>
 
+    <style name="AppTheme.TabText" parent="AppTheme">
+        <item name="android:layout_width">@dimen/textTitleSizeBold</item>
+        <item name="android:layout_height">@dimen/textTitleSizeBold</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
 </resources>

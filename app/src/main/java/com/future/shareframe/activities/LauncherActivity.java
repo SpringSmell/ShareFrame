@@ -63,7 +63,16 @@ public class LauncherActivity extends ShareActivity {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onClick(View v, int position) {
-                showSnackbar(""+position);
+                switch (position){
+                    case 0:
+                        showSnackbar("" + position);
+                        startActivity(new Intent(LauncherActivity.this, Test1Activity.class));
+                        break;
+                    case 1:
+                        showSnackbar("" + position);
+                        startActivity(new Intent(LauncherActivity.this, SideActivity.class));
+                        break;
+                }
             }
         });
     }

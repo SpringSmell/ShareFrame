@@ -9,8 +9,10 @@ import android.widget.Toast;
 
 import com.future.sharelibrary.R;
 import com.future.sharelibrary.frame.ExitApplication;
+import com.future.sharelibrary.frame.ShareApplication;
 
 /**
+ * 不建议使用
  * Created by chris on 2015/12/13.
  */
 public abstract class BaseActivity extends Activity {

@@ -29,4 +29,5 @@ public abstract class ShareActivity extends HttpActivity {
     public abstract void bindData();
 
     public abstract void initTitle();
+
 }

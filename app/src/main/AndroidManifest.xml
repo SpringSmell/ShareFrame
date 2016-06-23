@@ -24,6 +24,10 @@
             android:name=".activities.Test1Activity"
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".activities.SideActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
 
         <!--百度地图Key-->
         <meta-data

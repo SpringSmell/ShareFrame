@@ -6,6 +6,9 @@ import android.view.MotionEvent;
 import android.widget.ScrollView;
 
 
+/**
+ * 监听ScrollView滚动
+ */
 public class CustomScrollView extends ScrollView {
 
 	private ScrollListener scrollListener;
@@ -46,6 +49,7 @@ public class CustomScrollView extends ScrollView {
 		return super.onTouchEvent(ev);
 	}
 
+	//--------------
 	public interface ScrollListener{
 		void onScrollChanged(ScrollView scrollView,int x, int y, int oldx, int oldy);
 		void onScrollStoped();

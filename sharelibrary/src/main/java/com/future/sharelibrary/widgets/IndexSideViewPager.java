@@ -3,10 +3,8 @@ package com.future.sharelibrary.widgets;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import com.gearyoung.views.VerticalScrollView.YScrollDetector;
 
 /**
  * @blog http://blog.csdn.net/mcy478643968/article/details/19609407
@@ -66,11 +64,11 @@ public class IndexSideViewPager extends ViewPager {
 	 *
 	 */
 	public interface OnSingleTouchListener {
-		public void onSingleTouch();
+		void onSingleTouch();
 	}
 
-	public void SetOnSingleTouchListener(
-			OnSingleTouchListener mOnSingleTouchListener) {
-		this.mOnSingleTouchListener = mOnSingleTouchListener;
+	public void setOnSingleTouchListener(
+			OnSingleTouchListener onSingleTouchListener) {
+		this.mOnSingleTouchListener = onSingleTouchListener;
 	}
 }
