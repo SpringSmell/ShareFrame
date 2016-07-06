@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 
+import com.future.sharelibrary.adapter.BaseViewHolder;
+
 /**
  * 对外开放的类，请继承该类
  * Created by chris on 2016/6/8.
@@ -19,15 +21,15 @@ public abstract class ShareActivity extends HttpActivity {
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
-        initView();
-        bindData();
+        init();
+        onBindData(getViewHolder());
         initTitle();
     }
 
-    public abstract void initView();
+    public abstract void init();
 
-    public abstract void bindData();
+    public abstract void onBindData(BaseViewHolder viewHolder);
 
-    public abstract void initTitle();
+    public void initTitle(){}
 
 }

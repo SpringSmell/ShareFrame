@@ -1,23 +1,28 @@
 package com.future.shareframe.fragments;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.future.shareframe.R;
+import com.future.sharelibrary.adapter.BaseViewHolder;
+import com.future.sharelibrary.fragments.BaseFragment;
 
 /**
  * Created by Administrator on 2016/6/21.
  */
-public class TestFragment extends Fragment {
+public class TestFragment extends BaseFragment {
 
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_test,container,false);
+    public int resultLayoutId() {
+        return R.layout.fragment_test;
+    }
+
+    @Override
+    public void onBindData(BaseViewHolder viewHolder) {
+
+    }
+
+    @Override
+    public void initTitle() {
+        super.initTitle();
+        showTitle(false);
     }
 }

@@ -80,7 +80,7 @@ public class GsonUtils {
 	 */
 	public static <T> String parseToJsons(List<T> clsList){
 		String json="";
-		try{
+		try {
 		Gson gson=new Gson();
 		json=gson.toJson(clsList);
 		}catch(Exception ex){

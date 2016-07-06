@@ -1,34 +1,26 @@
 package com.future.shareframe.adapter;
 
 import com.future.shareframe.R;
+import com.future.shareframe.model.TestRVBean;
 import com.future.sharelibrary.adapter.RecyclerViewBaseAdapter;
 
-import java.util.List;
-
 /**
- * Created by Administrator on 2016/6/12.
+ * Created by chris Zou on 2016/7/6.
  */
-public class TestRVAdapter extends RecyclerViewBaseAdapter {
+public class TestRVAdapter extends RecyclerViewBaseAdapter<TestRVBean> {//<TestRVBean>
 
-    private List<String> contentList;
-
-    public TestRVAdapter(List<String> contentList) {
-        this.contentList = contentList;
-    }
-
-    @Override
-    public List<?> itemCount() {
-        return contentList;
-    }
-
+    /**
+     * 布局文件
+     *
+     * @return
+     */
     @Override
     public int resultResId() {
-        return R.layout.item_pull_refresh;
+        return R.layout.item_launcher;
     }
 
     @Override
-    public void onBindData(BaseViewHolder holder, int position) {
-        holder.setText(R.id.content,contentList.get(position));
-
+    public void onBindData(RecyclerViewBaseViewHolder holder, int position, TestRVBean itemData) {
+        holder.setText(R.id.launcherTitle,itemData.title);
     }
 }

@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.future.sharelibrary.R;
 import com.future.sharelibrary.frame.ExitApplication;
-import com.future.sharelibrary.frame.ShareApplication;
 
 /**
  * 不建议使用

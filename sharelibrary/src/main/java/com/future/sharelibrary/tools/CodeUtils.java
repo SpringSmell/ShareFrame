@@ -2,6 +2,9 @@ package com.future.sharelibrary.tools;
 
 import java.util.StringTokenizer;
 
+/**
+ *编码工具
+ */
 public class CodeUtils {
 
 	public final static char charString[] = {'a','b','c','d','e','f'};

@@ -1,28 +1,23 @@
 package com.future.sharelibrary.activities;
 
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.future.sharelibrary.R;
+import com.future.sharelibrary.adapter.BaseViewHolder;
 import com.future.sharelibrary.frame.ExitApplication;
-import com.future.sharelibrary.tools.CommonUtils;
-import com.future.sharelibrary.tools.HttpUtils;
 import com.future.sharelibrary.widgets.LoadingPopupWindow;
 
 /**
@@ -30,20 +25,21 @@ import com.future.sharelibrary.widgets.LoadingPopupWindow;
  */
 public abstract class ThemeActivity extends AppCompatActivity {
 
-    protected FrameLayout appContentView;
-    protected RelativeLayout titleContent;
-    protected Snackbar mSnackbar;
-    protected AlertDialog mAlertDialog;
-    protected LoadingPopupWindow mLoadingPopupWindow;
-    protected Toolbar mToolbar;
+    private Snackbar mSnackbar;
+    private AlertDialog mAlertDialog;
+    private LoadingPopupWindow mLoadingPopupWindow;
     /**
      * popupWindow是否可操作
      */
-    protected boolean isHandle = true;
+    private boolean isHandle = true;
     /**
      * 主布局宽高
      */
-    private int contentWidth, contentHeight;
+    protected int contentWidth, contentHeight;
+    /**
+     * 基础holder，没有更好的传入方式，暂不支持扩展
+     */
+    private BaseViewHolder mViewHolder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,27 +51,37 @@ public abstract class ThemeActivity extends AppCompatActivity {
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
+        setContentView(LayoutInflater.from(this).inflate(layoutResID, null));
+    }
+
+    @Override
+    public void setContentView(View view) {
         init();
-        appContentView.addView(LayoutInflater.from(this).inflate(layoutResID, appContentView, false));
+        FrameLayout appContent= mViewHolder.getView(R.id.appContent);
+        appContent.addView(view);
     }
 
     private void init() {
-        if (appContentView != null) {
+        if (mViewHolder != null) {
             return;
         }
-        super.setContentView(R.layout.app_content);
-        appContentView = (FrameLayout) findViewById(R.id.appContent);
-        titleContent = (RelativeLayout) findViewById(R.id.titleContent);
-        mToolbar= (Toolbar) findViewById(R.id.titleToolbar);
+        mViewHolder=OnCreateViewHolder(R.layout.app_content);
+        super.setContentView(mViewHolder.rootView);
+    }
+
+    public BaseViewHolder OnCreateViewHolder(int resId) {
+        mViewHolder = new BaseViewHolder(LayoutInflater.from(this).inflate(resId,null));
+        return mViewHolder;
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        contentWidth = appContentView.getMeasuredWidth();
-        contentHeight = appContentView.getMeasuredHeight();
+        contentWidth = mViewHolder.getView(R.id.appContent).getMeasuredWidth();
+        contentHeight = mViewHolder.getView(R.id.appContent).getMeasuredHeight();
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(R.layout.pw_loading);
@@ -88,7 +94,7 @@ public abstract class ThemeActivity extends AppCompatActivity {
         mLoadingPopupWindow = LoadingPopupWindow.LoadingPWBuilder.getInstance(this).getPopupWindow();
     }
 
-    protected void alertPopupWindow(){
+    protected void alertPopupWindow() {
         this.alertPopupWindow(true);
     }
 
@@ -103,7 +109,7 @@ public abstract class ThemeActivity extends AppCompatActivity {
             initPopupWindow();
         }
         mLoadingPopupWindow.setOutsideTouchable(isHandle);
-        mLoadingPopupWindow.showPopupWindow(titleContent);
+        mLoadingPopupWindow.showPopupWindow(mViewHolder.rootView);
     }
 
     protected void dismissPopupWindow() {
@@ -114,89 +120,62 @@ public abstract class ThemeActivity extends AppCompatActivity {
 
 
     protected void setBackValid() {
-        ImageView backView = (ImageView) titleContent.findViewById(R.id.titleLeft);
-        backView.setVisibility(View.VISIBLE);
-        backView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        this.setBackValid(0, null);
     }
 
-    protected void setBackValid(View.OnClickListener onClickListener) {
-        ImageView backView = (ImageView) titleContent.findViewById(R.id.titleLeft);
+    protected void setBackValid(int icon) {
+        this.setRightView(icon, null);
+    }
+
+    protected void setBackValid(int icon, View.OnClickListener onClickListener) {
+        ImageView backView = mViewHolder.getView(R.id.titleLeft);
         backView.setVisibility(View.VISIBLE);
+        if (icon != 0)
+            backView.setImageResource(icon);
+        if (onClickListener == null)
+            onClickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            };
         backView.setOnClickListener(onClickListener);
     }
 
-
-    protected void setBackValid(int icon) {
-        ImageView backView = (ImageView) titleContent.findViewById(R.id.titleLeft);
-        backView.setVisibility(View.VISIBLE);
-        backView.setImageResource(icon);
-        backView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
-
-
-    @Override
     public void setTitle(CharSequence title) {
-        TextView titleView = (TextView) titleContent.findViewById(R.id.titleName);
+        TextView titleView = mViewHolder.getView(R.id.titleName);
         titleView.setVisibility(View.VISIBLE);
         titleView.setText(title);
     }
 
-    @Override
-    public void setTitle(int titleId) {
-        TextView titleView = (TextView) titleContent.findViewById(R.id.titleName);
-        titleView.setVisibility(View.VISIBLE);
-        titleView.setText(titleId);
-    }
-
     protected void setRightView(CharSequence content, View.OnClickListener onClickListener) {
-        TextView titleRight = ((TextView) titleContent.findViewById(R.id.titleRight));
-        titleRight.setVisibility(View.VISIBLE);
-        titleRight.setText(content);
-        titleRight.setOnClickListener(onClickListener);
+        this.setRightView(content, 0, onClickListener);
     }
 
     protected void setRightView(int icon, View.OnClickListener onClickListener) {
-        TextView titleRight = ((TextView) titleContent.findViewById(R.id.titleRight));
-        titleRight.setVisibility(View.VISIBLE);
-        titleRight.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(icon), null, null, null);
-        titleRight.setOnClickListener(onClickListener);
+        this.setRightView("", icon, onClickListener);
     }
 
-    protected void setRightView(String content, int icon, View.OnClickListener onClickListener) {
-        TextView titleRight = ((TextView) titleContent.findViewById(R.id.titleRight));
+    protected void setRightView(CharSequence content, int icon, View.OnClickListener onClickListener) {
+        TextView titleRight = mViewHolder.getView(R.id.titleRight);
         titleRight.setVisibility(View.VISIBLE);
         titleRight.setText(content);
-        titleRight.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(icon), null, null, null);
+        if (icon != 0)
+            titleRight.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(icon), null);
         titleRight.setOnClickListener(onClickListener);
     }
 
     protected void showTitle(boolean isVisible) {
         if (isVisible) {
-            mToolbar.setVisibility(View.VISIBLE);
+            mViewHolder.getView(R.id.titleContent).setVisibility(View.VISIBLE);
         } else {
-            mToolbar.setVisibility(View.GONE);
+            mViewHolder.getView(R.id.titleContent).setVisibility(View.GONE);
         }
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ExitApplication.newInstance().removeActivity(this);
-    }
-
-    @Override
     public void onBackPressed() {
-        if (mLoadingPopupWindow != null && mLoadingPopupWindow.isShowing()&&isHandle) {
+        if (mLoadingPopupWindow != null && mLoadingPopupWindow.isShowing() && isHandle) {
             mLoadingPopupWindow.dismiss();
             return;
         }
@@ -208,18 +187,31 @@ public abstract class ThemeActivity extends AppCompatActivity {
     }
 
     protected void showSnackbar(CharSequence content) {
-        this.showSnackbar(appContentView,content);
+        this.showSnackbar(mViewHolder.rootView, content);
     }
 
     protected void showSnackbar(CharSequence content, CharSequence actionTxt, View.OnClickListener onClickListener) {
-        mSnackbar=Snackbar.make(appContentView, content, Snackbar.LENGTH_SHORT).setAction(actionTxt, onClickListener);
+        mSnackbar = Snackbar.make(mViewHolder.rootView, content, Snackbar.LENGTH_SHORT).setAction(actionTxt, onClickListener);
         mSnackbar.show();
     }
 
     protected void showSnackbar(View parentView, CharSequence content) {
-        mSnackbar=Snackbar.make(parentView, content, Snackbar.LENGTH_SHORT);
+        mSnackbar = Snackbar.make(parentView, content, Snackbar.LENGTH_SHORT);
         mSnackbar.show();
     }
 
+    public BaseViewHolder getViewHolder() {
+        return this.mViewHolder;
+    }
+
+    public View getTitleView() {
+        return this.mViewHolder.getView(R.id.titleContent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ExitApplication.newInstance().removeActivity(this);
+    }
 
 }

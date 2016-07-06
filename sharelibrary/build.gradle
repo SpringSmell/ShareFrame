@@ -16,17 +16,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    sourceSets { main { jniLibs.srcDirs = ['libs'] } }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.android.support:design:23.4.0'
-    compile files('libs/BaiduLBS_Android.jar')
-    compile files('libs/xUtils3.3.34.jar')
-    compile files('libs/XRecyclerView.jar')
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'org.xutils:xutils:3.3.36'
 }

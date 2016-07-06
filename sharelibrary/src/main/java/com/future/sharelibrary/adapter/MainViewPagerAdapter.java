@@ -3,7 +3,6 @@ package com.future.sharelibrary.adapter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.future.sharelibrary.model.MainTabContent;
 
@@ -17,7 +16,7 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private LinkedList<MainTabContent> mainTabContentList;
 
-    public MainViewPagerAdapter(FragmentManager fm,LinkedList<MainTabContent> mainTabContentList) {
+    public MainViewPagerAdapter(FragmentManager fm, LinkedList<MainTabContent> mainTabContentList) {
         super(fm);
         this.mainTabContentList = mainTabContentList;
     }
@@ -25,7 +24,6 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Fragment fragment=new Fragment();
-
         try {
             fragment= (Fragment) mainTabContentList.get(position).getFragment().newInstance();
         } catch (InstantiationException e) {

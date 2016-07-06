@@ -1,12 +1,13 @@
 package com.future.shareframe.frame;
 
 
-import com.future.sharelibrary.frame.LocationApplication;
+import android.app.Application;
+
 
 /**
  * Created by chris on 2016/6/7.
  */
-public class MainApplication extends LocationApplication {
+public class MainApplication extends Application {
 
     private static MainApplication instance;
 

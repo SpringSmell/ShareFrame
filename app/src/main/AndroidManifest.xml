@@ -34,10 +34,6 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="j6XTqL6XPFqyGBUG16RkeyI8QHhvV78G" />
         <!--百度地图定位服务-->
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote"></service>
     </application>
     <!-- 这个权限用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>

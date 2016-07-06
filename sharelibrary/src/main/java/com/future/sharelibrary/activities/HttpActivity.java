@@ -1,12 +1,7 @@
 package com.future.sharelibrary.activities;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
-import android.support.v4.text.TextUtilsCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -98,7 +93,7 @@ public class HttpActivity extends ThemeActivity {
             }
 
             @Override
-            public void onCancelled(CancelledException e) {
+            public void onCancelled(Callback.CancelledException e) {
                 showSnackbar("已取消");
             }
 
@@ -109,7 +104,7 @@ public class HttpActivity extends ThemeActivity {
         });
     }
 
-    protected RequestParams getParams(String url,Bundle params){
+    protected RequestParams getParams(String url, Bundle params){
         RequestParams mRequestParams=new RequestParams(url);
         if(params==null){
             return mRequestParams;
