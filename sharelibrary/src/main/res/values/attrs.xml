@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ShadowRelativeLayout">
+        <attr name="shadowSize" format="dimension|integer"/>
+        <attr name="shadowDx" format="dimension|integer"/>
+        <attr name="shadowDy" format="dimension|integer"/>
+        <attr name="shadowRadius" format="dimension|integer|float"/>
+        <attr name="shadowColor" format="reference|color"/>
+    </declare-styleable>
+
+    <declare-styleable name="RollView">
+        <attr name="isLoop" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="DashedLineView">
+        <attr name="lineHeight" format="dimension|integer"/>
+        <attr name="lineColor" format="color|integer"/>
+        <attr name="dashWidth" format="dimension|integer"/>
+    </declare-styleable>
+</resources>

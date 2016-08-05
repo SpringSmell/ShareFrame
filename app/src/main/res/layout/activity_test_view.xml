@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.future.sharelibrary.widgets.DashedLineView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:lineColor="@color/colorBlack"
+        app:lineHeight="2dp"
+        app:dashWidth="5dp"
+        android:layout_weight="1"/>
+    <com.future.sharelibrary.widgets.TestView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:layout_weight="1"/>
+</LinearLayout>

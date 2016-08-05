@@ -14,51 +14,57 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.future.sharelibrary.R;
-import com.future.sharelibrary.adapter.BaseViewHolder;
+import com.future.sharelibrary.adapter.BaseParentViewHolder;
 import com.future.sharelibrary.widgets.LoadingPopupWindow;
 
 /**
  * Created by Administrator on 2016/6/12.
  */
-public abstract class BaseFragment extends Fragment {//<VH extends BaseViewHolder> 暂未有更好的方式，暂不支持ViewHolder的继承
+public abstract class ShareFragment extends Fragment {//<VH extends BaseParentViewHolder> 暂未有更好的方式，暂不支持ViewHolder的继承
 
-    private BaseViewHolder mViewHolder;
+    private BaseParentViewHolder mViewHolder;
     private LoadingPopupWindow mLoadingPopupWindow;
     private Snackbar mSnackbar;
     /**
      * popupWindow是否可操作
      */
     private boolean isHandle = true;
+    private View rootView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (mViewHolder == null)
+        if (mViewHolder == null || mViewHolder.rootView == null) {
             mViewHolder = onCreateViewHolder(inflater, container);
-        if (mViewHolder.rootView.getParent() != null)
-            ((ViewGroup) mViewHolder.rootView.getParent()).removeView(mViewHolder.rootView);
-        onBindData(mViewHolder);
-        onBackPressed();
-        initTitle();
+            onBindData(mViewHolder);
+            onBackPressed();
+            initTitle();
+        }
+//        if(rootView==null){
+//            rootView = inflater.inflate(R.layout.app_content, container, false);
+//        }
+        ViewGroup parent = (ViewGroup) mViewHolder.rootView.getParent();
+        if (parent != null)
+            parent.removeView(mViewHolder.rootView);
         return mViewHolder.rootView;
     }
 
     public abstract int resultLayoutId();
 
-    private BaseViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup container) {
+    private BaseParentViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup container) {
         View rootView = inflater.inflate(R.layout.app_content, container, false);
         View childView = inflater.inflate(resultLayoutId(), container, false);
-        mViewHolder = new BaseViewHolder(rootView);
+        mViewHolder = new BaseParentViewHolder(rootView);
         ((FrameLayout) mViewHolder.getView(R.id.appContent)).addView(childView);
         return mViewHolder;
     }
 
     public void initTitle() {
-        showTitle(true);
+        showTitleBar(true);
         setBackValid();
     }
 
-    public abstract void onBindData(BaseViewHolder viewHolder);
+    public abstract void onBindData(BaseParentViewHolder viewHolder);
 
     protected void setBackValid() {
         this.setBackValid(0, null);
@@ -83,10 +89,19 @@ public abstract class BaseFragment extends Fragment {//<VH extends BaseViewHolde
         backView.setOnClickListener(onClickListener);
     }
 
+    public void setTitle(int titleResId) {
+        this.setTitle(getString(titleResId));
+    }
+
     public void setTitle(CharSequence title) {
         TextView titleView = mViewHolder.getView(R.id.titleName);
         titleView.setVisibility(View.VISIBLE);
         titleView.setText(title);
+    }
+
+    public CharSequence getTitle() {
+        TextView titleView = mViewHolder.getView(R.id.titleName);
+        return titleView.getText();
     }
 
     protected void setRightView(CharSequence content, View.OnClickListener onClickListener) {
@@ -106,7 +121,7 @@ public abstract class BaseFragment extends Fragment {//<VH extends BaseViewHolde
         titleRight.setOnClickListener(onClickListener);
     }
 
-    protected void showTitle(boolean isVisible) {
+    protected void showTitleBar(boolean isVisible) {
         if (isVisible) {
             mViewHolder.getView(R.id.titleContent).setVisibility(View.VISIBLE);
         } else {
@@ -131,6 +146,29 @@ public abstract class BaseFragment extends Fragment {//<VH extends BaseViewHolde
                 return false;
             }
         });
+    }
+
+    private void initPopupWindow() {
+        mLoadingPopupWindow = LoadingPopupWindow.LoadingPWBuilder.getInstance(getActivity()).getPopupWindow();
+    }
+
+
+    protected void alertPopupWindow() {
+        this.alertPopupWindow(true);
+    }
+
+    /**
+     * 弹出加载提示框
+     *
+     * @param isHandle true：点击及返回键可消失 false:用户不可操作
+     */
+    protected void alertPopupWindow(boolean isHandle) {
+        this.isHandle = isHandle;
+        if (mLoadingPopupWindow == null) {
+            initPopupWindow();
+        }
+        mLoadingPopupWindow.setOutsideTouchable(isHandle);
+        mLoadingPopupWindow.showPopupWindow(mViewHolder.rootView);
     }
 
 

@@ -5,5 +5,15 @@ package com.future.sharelibrary.listener;
  */
 public interface OnHttpListener {
 
-    public void onHttpResult(String json);
+    /**
+     * 返回json
+     * @param json
+     */
+    void onHttpResult(String json);
+
+    /**
+     * 是否信任缓存
+     * @return
+     */
+    boolean onTrustCache();
 }

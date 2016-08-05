@@ -1,7 +1,9 @@
 package com.future.sharelibrary.tools;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.Rect;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -170,6 +172,27 @@ public class FormatUtils {
         float x=Math.abs(x2-x1);
         float y=Math.abs(y2-y1);
         return Math.sqrt(x * x + y * y);
+    }
+
+    /**
+     * 获得字体高度
+     */
+    public static int getFontHeight(Paint paint) {
+        Rect rect = new Rect();
+        paint.getTextBounds("正", 0, 1, rect);
+        return rect.height();
+    }
+
+    /**
+     * 获得字体宽
+     */
+    public static int getFontWidth(Paint paint, String str) {
+        if (str == null || str.equals(""))
+            return 0;
+        Rect rect = new Rect();
+        int length = str.length();
+        paint.getTextBounds(str, 0, length, rect);
+        return rect.width();
     }
 
 }

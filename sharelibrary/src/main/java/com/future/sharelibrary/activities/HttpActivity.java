@@ -28,19 +28,13 @@ public class HttpActivity extends ThemeActivity {
         return HttpUtils.isNetWorkAvailable(this);
     }
 
-    protected void post(String url,Bundle params, final OnHttpListener onHttpListener){
+    protected void onPost(String url,Bundle params, final OnHttpListener onHttpListener){
         x.http().post(getParams(url,params), new Callback.CacheCallback<String>() {
 
             @Override
             public boolean onCache(String s) {
-
-                boolean flag=false;
-//                if(!TextUtils.isEmpty(s)){
-//                    flag=true;
-//                    onHttpListener.onHttpResult(s);
-//                }
-                Log.e("HTTP", "onCache: " );
-                if(!flag){
+                boolean flag=onHttpListener.onTrustCache();
+                if(flag){
                     alertPopupWindow();
                 }
                 return flag;// true: 信任缓存数据, 不在发起网络请求; false不信任缓存数据.
@@ -68,15 +62,14 @@ public class HttpActivity extends ThemeActivity {
         });
     }
 
-    protected void get(String url,Bundle params, final OnHttpListener onHttpListener){
-        x.http().get(getParams(url,params), new Callback.CacheCallback<String>() {
+    protected void onGet(String url,Bundle params, final OnHttpListener onHttpListener){
+        x.http().get(getParams(HttpUtils.httpEventGetFormat(url,params),null), new Callback.CacheCallback<String>() {
 
             @Override
             public boolean onCache(String s) {
-                alertPopupWindow();
-                boolean flag=false;
-                if(!TextUtils.isEmpty(s)){
-                    flag=true;
+                boolean flag=onHttpListener.onTrustCache();
+                if(flag){
+                    alertPopupWindow();
                 }
                 return flag;// true: 信任缓存数据, 不在发起网络请求; false不信任缓存数据.
             }
@@ -115,5 +108,4 @@ public class HttpActivity extends ThemeActivity {
         }
         return mRequestParams;
     }
-
 }

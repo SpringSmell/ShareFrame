@@ -6,20 +6,22 @@
     android:orientation="vertical">
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/mainViewPager"
+        android:id="@+id/sideMainViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:scrollbars="none"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/colorWhite"
+        android:scrollbars="none">
 
     </android.support.v4.view.ViewPager>
+
     <android.support.design.widget.TabLayout
-        android:id="@+id/mainTabLayout"
+        android:id="@+id/sideMainTabLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarSize"
-        app:tabIndicatorColor="@color/colorAccent"
-        android:background="@color/colorThemePrimary"
-        app:tabSelectedTextColor="@color/colorAccent"
-        app:tabTextAppearance="@style/AppTheme.TabText"
+        android:background="@color/colorTransparent"
+        android:clickable="true"
+        app:tabIndicatorColor="@color/colorWhite"
+        app:tabSelectedTextColor="@color/colorBlack"
         app:tabTextColor="@android:color/white"></android.support.design.widget.TabLayout>
 </LinearLayout>

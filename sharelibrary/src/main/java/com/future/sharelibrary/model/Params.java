@@ -5,12 +5,12 @@ import java.io.Serializable;
 /**
  * Created by Administrator on 2016/4/15.
  */
-public class MainContent implements Serializable {
+public class Params implements Serializable {
 
     private String content;
     private String tag;
 
-    public MainContent(String tag, String content) {
+    public Params(String tag, String content) {
         this.tag = tag;
         this.content = content;
     }

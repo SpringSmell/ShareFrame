@@ -7,7 +7,7 @@ import com.future.sharelibrary.adapter.RecyclerViewBaseAdapter;
 /**
  * Created by chris Zou on 2016/7/6.
  */
-public class TestRVAdapter extends RecyclerViewBaseAdapter<TestRVBean> {//<TestRVBean>
+public class TestRVParentAdapter extends RecyclerViewBaseAdapter<TestRVBean> {//<TestRVBean>
 
     /**
      * 布局文件
@@ -15,12 +15,15 @@ public class TestRVAdapter extends RecyclerViewBaseAdapter<TestRVBean> {//<TestR
      * @return
      */
     @Override
-    public int resultResId() {
+    public int resultLayoutResId() {
         return R.layout.item_launcher;
     }
 
     @Override
-    public void onBindData(RecyclerViewBaseViewHolder holder, int position, TestRVBean itemData) {
-        holder.setText(R.id.launcherTitle,itemData.title);
+    public void onBindData(BaseViewHolder holder, int position, TestRVBean itemData) {
+        holder.setText(R.id.launcherTitle, itemData.title);
+
     }
+
+
 }

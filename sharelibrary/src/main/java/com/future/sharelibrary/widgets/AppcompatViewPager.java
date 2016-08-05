@@ -12,17 +12,17 @@ import android.view.MotionEvent;
  * @author zoulx
  *
  */
-public class IndexSideViewPager extends ViewPager {
+public class AppcompatViewPager extends ViewPager {
 
 	float curX = 0f;
 	float downX = 0f;
 	OnSingleTouchListener mOnSingleTouchListener;
 
-	public IndexSideViewPager(Context context) {
+	public AppcompatViewPager(Context context) {
 		super(context);
 	}
 
-	public IndexSideViewPager(Context context, AttributeSet attrs) {
+	public AppcompatViewPager(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 

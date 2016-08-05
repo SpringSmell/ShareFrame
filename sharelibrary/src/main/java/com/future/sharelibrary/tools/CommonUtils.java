@@ -2,10 +2,14 @@ package com.future.sharelibrary.tools;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.net.Uri;
+import android.os.Process;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
@@ -14,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
@@ -182,5 +187,18 @@ public class CommonUtils {
     public static int getMaxMemory() {
         int maxMemory = (int) Runtime.getRuntime().maxMemory();
         return maxMemory;
+    }
+
+    public static boolean installAPK(Context context,File file) {
+        if(file.exists()) {
+            Intent intent = new Intent("android.intent.action.VIEW");
+            intent.addFlags(268435456);
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+            context.startActivity(intent);
+            Process.killProcess(Process.myPid());
+            return true;
+        } else {
+            return false;
+        }
     }
 }

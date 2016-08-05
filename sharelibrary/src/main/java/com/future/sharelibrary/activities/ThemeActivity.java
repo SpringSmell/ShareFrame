@@ -2,6 +2,7 @@ package com.future.sharelibrary.activities;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -10,14 +11,19 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.future.sharelibrary.R;
-import com.future.sharelibrary.adapter.BaseViewHolder;
+import com.future.sharelibrary.adapter.BaseParentViewHolder;
 import com.future.sharelibrary.frame.ExitApplication;
+import com.future.sharelibrary.function.SystemBarTintManager;
 import com.future.sharelibrary.widgets.LoadingPopupWindow;
 
 /**
@@ -39,15 +45,16 @@ public abstract class ThemeActivity extends AppCompatActivity {
     /**
      * 基础holder，没有更好的传入方式，暂不支持扩展
      */
-    private BaseViewHolder mViewHolder;
+    private BaseParentViewHolder mViewHolder;
+    private SystemBarTintManager tintManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         init();
         ExitApplication.newInstance().addActivity(this);
     }
-
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -57,7 +64,7 @@ public abstract class ThemeActivity extends AppCompatActivity {
     @Override
     public void setContentView(View view) {
         init();
-        FrameLayout appContent= mViewHolder.getView(R.id.appContent);
+        FrameLayout appContent = mViewHolder.getView(R.id.appContent);
         appContent.addView(view);
     }
 
@@ -65,13 +72,17 @@ public abstract class ThemeActivity extends AppCompatActivity {
         if (mViewHolder != null) {
             return;
         }
-        mViewHolder=OnCreateViewHolder(R.layout.app_content);
+        mViewHolder = OnCreateViewHolder(R.layout.app_content);
         super.setContentView(mViewHolder.rootView);
     }
 
-    public BaseViewHolder OnCreateViewHolder(int resId) {
-        mViewHolder = new BaseViewHolder(LayoutInflater.from(this).inflate(resId,null));
+    public BaseParentViewHolder OnCreateViewHolder(int resId) {
+        mViewHolder = new BaseParentViewHolder(LayoutInflater.from(this).inflate(resId, null));
         return mViewHolder;
+    }
+
+    public void setStatusTintColor(int color){
+        tintManager.setStatusBarTintColor(color);
     }
 
     @Override
@@ -117,8 +128,14 @@ public abstract class ThemeActivity extends AppCompatActivity {
             mLoadingPopupWindow.dismiss();
         }
     }
+    protected void setBackValid(boolean isVisible) {
+        if(isVisible){
+            this.setBackValid(0, null);
+        }else{
+            mViewHolder.getView(R.id.titleLeft).setVisibility(View.GONE);
+        }
 
-
+    }
     protected void setBackValid() {
         this.setBackValid(0, null);
     }
@@ -140,6 +157,10 @@ public abstract class ThemeActivity extends AppCompatActivity {
                 }
             };
         backView.setOnClickListener(onClickListener);
+    }
+
+    public void setTitle(int titleResId) {
+        this.setTitle(getString(titleResId));
     }
 
     public void setTitle(CharSequence title) {
@@ -200,18 +221,34 @@ public abstract class ThemeActivity extends AppCompatActivity {
         mSnackbar.show();
     }
 
-    public BaseViewHolder getViewHolder() {
+    public BaseParentViewHolder getViewHolder() {
         return this.mViewHolder;
     }
 
-    public View getTitleView() {
+    public RelativeLayout getTitleView() {
         return this.mViewHolder.getView(R.id.titleContent);
     }
 
+    public <T> T getMainView() {
+        return (T) this.mViewHolder.rootView;
+    }
+
+    public void setBackGround(int id){
+        mViewHolder.rootView.setBackgroundResource(id);
+    }
+    public void setBackGroundColor(int id){
+        mViewHolder.rootView.setBackgroundColor(id);
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public void setBackGround(Drawable drawable){
+        mViewHolder.rootView.setBackground(drawable);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
         ExitApplication.newInstance().removeActivity(this);
+        this.mViewHolder.onDestroy();
     }
 
 }

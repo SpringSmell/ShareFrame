@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ public abstract class BaseActivity extends Activity {
     public abstract void initTitle();
 
     protected void setBackValid(){
-        TextView backView= (TextView) findViewById(R.id.titleLeft);
+        ImageView backView= (ImageView) findViewById(R.id.titleLeft);
         backView.setVisibility(View.VISIBLE);
         backView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,15 +45,14 @@ public abstract class BaseActivity extends Activity {
     }
 
     protected void setBackValid(View.OnClickListener onClickListener){
-        TextView backView= (TextView) findViewById(R.id.titleLeft);
+        ImageView backView= (ImageView) findViewById(R.id.titleLeft);
         backView.setVisibility(View.VISIBLE);
         backView.setOnClickListener(onClickListener);
     }
 
     protected void setBackValid(CharSequence content){
-        TextView backView= (TextView) findViewById(R.id.titleLeft);
+        ImageView backView= (ImageView) findViewById(R.id.titleLeft);
         backView.setVisibility(View.VISIBLE);
-        backView.setText(content);
         backView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,10 +62,8 @@ public abstract class BaseActivity extends Activity {
     }
 
     protected void setBackValid(CharSequence content,int icon){
-        TextView backView= (TextView) findViewById(R.id.titleLeft);
+        ImageView backView= (ImageView) findViewById(R.id.titleLeft);
         backView.setVisibility(View.VISIBLE);
-        backView.setText(content);
-        backView.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(icon),null,null,null);
         backView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

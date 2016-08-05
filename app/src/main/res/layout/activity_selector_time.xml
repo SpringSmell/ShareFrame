@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.02"
+        android:gravity="center"
+        android:onClick="selectorTime"
+        android:text="点我一下"
+        android:textColor="@color/colorThemePrimary" />
+
+    <TextView
+        android:id="@+id/selectorArea"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:onClick="selectorArea"
+        android:text="点我一下"
+        android:textColor="@color/colorThemePrimary" />
+</LinearLayout>
