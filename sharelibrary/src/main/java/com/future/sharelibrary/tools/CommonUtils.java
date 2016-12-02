@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.Process;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -30,10 +31,11 @@ public class CommonUtils {
 
     /**
      * 获取SHA1码
+     *
      * @param context
      * @return
      */
-    public static String getSHA1(Context context){
+    public static String getSHA1(Context context) {
         try {
             PackageInfo info = context.getPackageManager().getPackageInfo(
                     context.getPackageName(), PackageManager.GET_SIGNATURES);
@@ -173,7 +175,7 @@ public class CommonUtils {
                 statusHeight = activity.getResources()
                         .getDimensionPixelSize(i5);
             } catch (Exception e) {
-				e.printStackTrace();
+                e.printStackTrace();
             }
         }
         return statusHeight;
@@ -189,16 +191,60 @@ public class CommonUtils {
         return maxMemory;
     }
 
-    public static boolean installAPK(Context context,File file) {
-        if(file.exists()) {
-            Intent intent = new Intent("android.intent.action.VIEW");
-            intent.addFlags(268435456);
-            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-            context.startActivity(intent);
+    public static boolean installApk(Context context, File file) {
+        if (file.exists()) {
+            context.startActivity(getInstallApkIntent(file));
             Process.killProcess(Process.myPid());
             return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * 判断SD卡是否可用
+     */
+    public static boolean isSDcardOK() {
+        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+    }
+
+    /**
+     * 获取SD卡跟路径。SD卡不可用时，返回null
+     */
+    public static String getSDcardRoot() {
+        if (isSDcardOK()) {
+            return Environment.getExternalStorageDirectory().getAbsolutePath();
+        }
+
+        return null;
+    }
+
+    /**获取字符串中某个字符串出现的次数。*/
+    public static int countMatches(String res, String findString) {
+        if (res == null) {
+            return 0;
+        }
+
+        if (findString == null || findString.length() == 0) {
+            throw new IllegalArgumentException("The param findString cannot be null or 0 length.");
+        }
+
+        return (res.length() - res.replace(findString, "").length()) / findString.length();
+    }
+
+    /**判断该文件是否是一个图片。*/
+    public static boolean isImage(String fileName) {
+        fileName=fileName.toLowerCase();
+        return fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png")||fileName.endsWith(".gif");
+    }
+
+    public static Intent getInstallApkIntent(File file) {
+        if(!file.exists()){
+            return null;
+        }
+        Intent intent = new Intent("android.intent.action.VIEW");
+        intent.addFlags(268435456);
+        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        return intent;
     }
 }

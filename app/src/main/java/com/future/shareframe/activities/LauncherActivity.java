@@ -68,6 +68,9 @@ public class LauncherActivity extends ShareActivity {
         bean = new TestRVBean();
         bean.title = "ResolveSwipeRefreshActivity";
         contents.add(bean);
+        bean = new TestRVBean();
+        bean.title = "ProgressActivity";
+        contents.add(bean);
         adapter = new TestRVParentAdapter();
         RecyclerView.LayoutManager manager = new StaggeredGridLayoutManager(1, OrientationHelper.VERTICAL);
         mRecyclerVew.setLayoutManager(manager);
@@ -98,6 +101,9 @@ public class LauncherActivity extends ShareActivity {
                     case 6:
                         ResolveSwipeRefreshActivity.startAction(LauncherActivity.this, ResolveSwipeRefreshActivity.class, "冲突的的下拉刷新");
                         break;
+                    case 7:
+                        ProgressActivity.startAction(LauncherActivity.this, ProgressActivity.class, "圆形进度条");
+                        break;
                 }
             }
         });
@@ -109,11 +115,10 @@ public class LauncherActivity extends ShareActivity {
 //        showSnackbar(testBean.get(0).get仰角()[0] + "");
     }
 
-    @Override
-    public void onInitTitle() {
-        super.onInitTitle();
-        setTitle("库功能列表");
-        setBackValid(false);
-//        setBackGroundColor(getResources().getColor(R.color.colorAccent));
+    @Override public void onInitLayout () {
+
+        super.onInitLayout ();
+        setTitle ( "库功能列表" );
+        setBackValid ( false );
     }
 }

@@ -10,9 +10,15 @@ import android.net.Uri;
 public class FunctionUtils {
 
 
-    public static final void openWebBrowser(Context context,String url){
-        Intent browserAction=new Intent(Intent.ACTION_VIEW);
-       browserAction.setData(Uri.parse(url));
+    /**
+     * 打开本地浏览器
+     *
+     * @param context
+     * @param url
+     */
+    public static final void openWebBrowser(Context context, String url) {
+        Intent browserAction = new Intent(Intent.ACTION_VIEW);
+        browserAction.setData(Uri.parse(url));
         context.startActivity(browserAction);
     }
 }

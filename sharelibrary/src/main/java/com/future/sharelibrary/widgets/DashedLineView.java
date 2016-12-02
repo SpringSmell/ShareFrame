@@ -17,6 +17,7 @@ import com.future.sharelibrary.R;
 
 
 /**
+ * 虚线
  * Created by Administrator on 2016/8/1.
  */
 public class DashedLineView extends View {
@@ -56,8 +57,6 @@ public class DashedLineView extends View {
     {
         return new DashPathEffect(new float[] { pathLength, pathLength },
                 pathLength - phase * pathLength);
-//        return new DashPathEffect(new float[] { phase*pathLength, pathLength },
-//               0);
     }
 
     @Override

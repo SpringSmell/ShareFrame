@@ -50,6 +50,10 @@
             android:name="com.future.sharelibrary.activities.CameraBaseActivity"
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".activities.ProgressActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
 
     </application>
 

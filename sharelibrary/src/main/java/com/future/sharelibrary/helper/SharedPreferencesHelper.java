@@ -14,7 +14,7 @@ public class SharedPreferencesHelper {
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
 
-    private SharedPreferencesHelper(Context context, String keyName) {
+    public SharedPreferencesHelper(Context context, String keyName) {
         this.mContext = context;
         mSharedPreferences = context.getSharedPreferences(keyName, Context.MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();

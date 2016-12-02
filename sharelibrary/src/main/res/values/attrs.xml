@@ -17,4 +17,18 @@
         <attr name="lineColor" format="color|integer"/>
         <attr name="dashWidth" format="dimension|integer"/>
     </declare-styleable>
+    <declare-styleable name="RoundProgressBar">
+
+        <attr name="roundColor" format="color|string"/>
+        <attr name="roundInsideColor" format="color|string"/>
+        <attr name="roundInsideSize" format="dimension"/>
+        <attr name="roundSize" format="dimension"/>
+        <attr name="roundBorderWidth" format="dimension"/>
+        <attr name="roundProgressColor" format="color|string"/>
+        <attr name="textColor" format="color|string"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="textIsDisplayable" format="boolean"/>
+        <attr name="style" format="integer|enum"/>
+
+            </declare-styleable>
 </resources>

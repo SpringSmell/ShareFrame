@@ -2,6 +2,7 @@ package com.future.sharelibrary.activities;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,13 +10,11 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +50,6 @@ public abstract class ThemeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         init();
         ExitApplication.newInstance().addActivity(this);
     }
@@ -141,11 +139,21 @@ public abstract class ThemeActivity extends AppCompatActivity {
     }
 
     protected void setBackValid(int icon) {
-        this.setRightView(icon, null);
+        this.setBackValid(icon,null, null);
+    }
+    protected void setBackValid(CharSequence backLabel,View.OnClickListener onClickListener) {
+        this.setBackValid(0,backLabel, onClickListener);
+    }
+    protected void setBackValid(int icon,CharSequence backLabel) {
+        this.setBackValid(icon,backLabel, null);
     }
 
-    protected void setBackValid(int icon, View.OnClickListener onClickListener) {
+    protected void setBackValid(int icon,CharSequence backLabel, View.OnClickListener onClickListener) {
         ImageView backView = mViewHolder.getView(R.id.titleLeft);
+        if(!TextUtils.isEmpty(backLabel)) {
+            TextView textView = mViewHolder.getView(R.id.titleLeftLabel);
+            textView.setText(backLabel);
+        }
         backView.setVisibility(View.VISIBLE);
         if (icon != 0)
             backView.setImageResource(icon);
@@ -156,7 +164,7 @@ public abstract class ThemeActivity extends AppCompatActivity {
                     finish();
                 }
             };
-        backView.setOnClickListener(onClickListener);
+        mViewHolder.getView(R.id.titleLeftBorder).setOnClickListener(onClickListener);
     }
 
     public void setTitle(int titleResId) {
@@ -195,6 +203,18 @@ public abstract class ThemeActivity extends AppCompatActivity {
     }
 
     @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+//        overridePendingTransition(R.anim.cu_push_right_in, R.anim.cu_push_left_out);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+//        overridePendingTransition(R.anim.cu_push_left_in, R.anim.cu_push_right_out);
+    }
+
+    @Override
     public void onBackPressed() {
         if (mLoadingPopupWindow != null && mLoadingPopupWindow.isShowing() && isHandle) {
             mLoadingPopupWindow.dismiss();
@@ -208,15 +228,24 @@ public abstract class ThemeActivity extends AppCompatActivity {
     }
 
     protected void showSnackbar(CharSequence content) {
+        if(mViewHolder.rootView==null||mViewHolder.rootView.getContext()==null){
+            return;
+        }
         this.showSnackbar(mViewHolder.rootView, content);
     }
 
     protected void showSnackbar(CharSequence content, CharSequence actionTxt, View.OnClickListener onClickListener) {
+        if(mViewHolder.rootView==null||mViewHolder.rootView.getContext()==null){
+            return;
+        }
         mSnackbar = Snackbar.make(mViewHolder.rootView, content, Snackbar.LENGTH_SHORT).setAction(actionTxt, onClickListener);
         mSnackbar.show();
     }
 
     protected void showSnackbar(View parentView, CharSequence content) {
+        if(parentView==null||parentView.getContext()==null){
+            return;
+        }
         mSnackbar = Snackbar.make(parentView, content, Snackbar.LENGTH_SHORT);
         mSnackbar.show();
     }
@@ -236,6 +265,20 @@ public abstract class ThemeActivity extends AppCompatActivity {
     public void setBackGround(int id){
         mViewHolder.rootView.setBackgroundResource(id);
     }
+
+    public void setContentBackGround(int id){
+        mViewHolder.getView(R.id.appContent).setBackgroundResource(id);
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public void setContentBackGround(Drawable drawable){
+        mViewHolder.getView(R.id.appContent).setBackground(drawable);
+    }
+
+    public void setContentBackGroundColor(int color){
+        mViewHolder.getView(R.id.appContent).setBackgroundColor(color);
+    }
+
     public void setBackGroundColor(int id){
         mViewHolder.rootView.setBackgroundColor(id);
     }

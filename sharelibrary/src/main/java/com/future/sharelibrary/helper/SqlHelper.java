@@ -9,6 +9,7 @@ import com.future.sharelibrary.R;
 import com.future.sharelibrary.tools.FileUtils;
 
 /**
+ *
  * Created by zoulx on 2016/3/24.
  */
 public class SqlHelper extends SQLiteOpenHelper {
@@ -16,6 +17,7 @@ public class SqlHelper extends SQLiteOpenHelper {
     private Context context;
     public static final String DBBeatName="Beta.db";
     public static final String DBName="city.db";
+    private SQLiteDatabase db;
     public SqlHelper(Context context, String dbName) {
         this(context, dbName, 1);
     }
@@ -42,12 +44,36 @@ public class SqlHelper extends SQLiteOpenHelper {
     }
 
     private void createExitDB(){
+        //替换数据库
         boolean flag= FileUtils.getInstance().writeFile(context.getResources().openRawResource(R.raw.city), "/data/data/" + context.getPackageName() + "/databases", DBName, true);
         Log.e("TEST", "createDB: "+flag);
     }
 
     private void upgradeDB(){
         FileUtils.getInstance().writeFile(context.getResources().openRawResource(R.raw.city), "/data/data/" + context.getPackageName() + "/databases", DBName, true);
+    }
+
+    /** 关闭数据库 */
+    public void closeDB() {
+        if (db != null) {
+            db.close();
+        }
+    }
+
+    /** 获得数据库 */
+    public SQLiteDatabase getDB() {
+        if (db == null) {
+            openDB();
+        } else {
+            closeDB();
+            openDB();
+        }
+        return db;
+    }
+
+    /** 打开数据库 */
+    public void openDB() {
+        db = getWritableDatabase();
     }
 
 }

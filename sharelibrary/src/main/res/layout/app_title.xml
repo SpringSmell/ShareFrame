@@ -3,8 +3,33 @@
     android:id="@+id/titleContent"
     android:layout_width="match_parent"
     android:layout_height="@dimen/actionBarSize"
-    android:background="@color/colorTransparent"
-    >
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:id="@+id/titleLeftBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/marginLeft"
+        android:paddingRight="@dimen/marginRight">
+
+        <ImageView
+            android:id="@+id/titleLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@drawable/selector_back"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/titleLeftLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/selector_white_text"
+            android:gravity="center" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/titleName"
@@ -13,25 +38,13 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:ellipsize="marquee"
-        android:focusableInTouchMode="true"
         android:focusable="true"
+        android:focusableInTouchMode="true"
         android:gravity="center"
         android:singleLine="true"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorBlack"
         android:textSize="@dimen/textTitleSize"
         android:visibility="visible" />
-
-    <ImageView
-        android:id="@+id/titleLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:paddingLeft="@dimen/marginLeft"
-        android:paddingRight="@dimen/marginRight"
-        android:scaleType="centerInside"
-        android:src="@drawable/selector_back"
-        android:visibility="gone" />
 
 
     <TextView
@@ -45,4 +58,9 @@
         android:paddingRight="@dimen/marginRight"
         android:textColor="@color/selector_white_text"
         android:visibility="visible" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#efefef"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

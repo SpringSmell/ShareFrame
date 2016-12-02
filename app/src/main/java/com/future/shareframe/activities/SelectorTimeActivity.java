@@ -39,12 +39,6 @@ public class SelectorTimeActivity extends ShareActivity {
     public void onBindData(final BaseParentViewHolder viewHolder) {
     }
 
-    @Override
-    public void onInitTitle() {
-        super.onInitTitle();
-        setBackValid();
-    }
-
     public void selectorTime(final View view) {
         if (mTimeSelector == null) {
             mTimeSelector = new TimeSelector(this, new TimeSelector.ResultHandler() {

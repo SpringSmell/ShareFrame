@@ -46,7 +46,7 @@ public class LoadingPopupWindow extends PopupWindow {
 
 
     public void showPopupWindow(View view){
-        if(!isShowing()){
+        if(!isShowing()&&mContext!=null){
             showAsDropDown(view,CommonUtils.getScreenWidth(mContext)/2-width/2,CommonUtils.getScreenHeight(mContext)/2-height/2);
         }
     }

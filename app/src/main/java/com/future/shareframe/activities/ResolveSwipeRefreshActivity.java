@@ -57,10 +57,4 @@ public class ResolveSwipeRefreshActivity extends ShareActivity {
 //        mResolveSwipeRefreshAdapter.setDatas(datas);
 
     }
-
-    @Override
-    public void onInitTitle() {
-        super.onInitTitle();
-        setBackValid();
-    }
 }

@@ -3,6 +3,7 @@ package com.future.sharelibrary.model;
 import java.io.Serializable;
 
 /**
+ * 传递到滑动框架TabLayout的Fragment的Mode
  * Created by Administrator on 2016/4/15.
  */
 public class Params implements Serializable {

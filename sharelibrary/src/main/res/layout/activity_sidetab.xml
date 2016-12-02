@@ -19,7 +19,7 @@
         android:id="@+id/sideMainTabLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarSize"
-        android:background="@color/colorTransparent"
+        android:background="@android:color/transparent"
         android:clickable="true"
         app:tabIndicatorColor="@color/colorWhite"
         app:tabSelectedTextColor="@color/colorBlack"

@@ -68,7 +68,9 @@ public abstract class RecyclerViewBaseParentAdapter extends RecyclerView.Adapter
         public BaseViewHolder setText(int id, CharSequence content, View.OnClickListener onClickListener) {
             TextView textView = getView(id);
             textView.setText(content);
-            textView.setOnClickListener(onClickListener);
+            if ( onClickListener != null ) {
+                textView.setOnClickListener ( onClickListener );
+            }
             return this;
         }
 
@@ -110,7 +112,9 @@ public abstract class RecyclerViewBaseParentAdapter extends RecyclerView.Adapter
                 ImageUtils.displayImg(img, url+"");
             if(iconId!=0)
                 img.setImageResource(iconId);
-            img.setOnClickListener(onClickListener);
+            if ( onClickListener != null ) {
+                img.setOnClickListener ( onClickListener );
+            }
             return this;
         }
     }

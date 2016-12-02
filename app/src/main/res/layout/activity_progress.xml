@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.future.sharelibrary.widgets.RoundProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:roundColor="@color/colorWhite"
+        app:roundSize="30dp"
+        app:textSize="10sp"
+        app:textColor="@color/colorBlack"
+        app:roundInsideColor="#00000000"
+        app:style="1"
+        app:roundProgressColor="#50000000" />
+</LinearLayout>

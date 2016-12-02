@@ -43,6 +43,21 @@ public class ExitApplication extends Application {
             for(Activity mActivity:this.activityList){
                 if(mActivity==activity) {
                     this.activityList.remove(activity);
+                    if (!activity.isFinishing()) {
+                        activity.finish();
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    public void removeActivity(Class activity){
+        if(activity!=null){
+            for(Activity mActivity:this.activityList){
+                if(mActivity.getClass()==activity) {
+                    mActivity.finish();
+                    this.activityList.remove(mActivity);
                     break;
                 }
             }

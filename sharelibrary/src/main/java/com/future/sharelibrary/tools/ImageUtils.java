@@ -42,6 +42,31 @@ public class ImageUtils {
     }
 
     /**
+     * 获取指定大小的位图
+     *
+     * @param reqWidth  希望取得的宽度
+     * @param reqHeight 希望取得的高度
+     * @return 按指定大小压缩之后的图片
+     * @source http://www.android-doc.com/training/displaying-bitmaps/load-bitmap
+     * .html#read-bitmap
+     */
+    public static Bitmap decodeSampledBitmapFromFile(String paths, int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(paths, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth,
+                reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(paths, options);
+    }
+
+    /**
      * 计算与指定位图的大小比例
      *
      * @param options

@@ -24,6 +24,8 @@ import java.io.Serializable;
  */
 public abstract class ShareActivity extends HttpActivity {
 
+    public static final String BUNDLE_PARAMS="bundleParams";
+    public static final String TITLE="title";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +37,8 @@ public abstract class ShareActivity extends HttpActivity {
         super.setContentView(layoutResID);
         onInit();
         onInitData();
+        onInitLayout();
         onBindData(getViewHolder());
-        onInitTitle();
     }
 
     /**
@@ -50,18 +52,23 @@ public abstract class ShareActivity extends HttpActivity {
      */
     public abstract void onInitData();
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     /**
      * 绑定数据
-     * @param viewHolder
+     * @param holder
      */
-    public abstract void onBindData(BaseParentViewHolder viewHolder);
+    public abstract void onBindData(BaseParentViewHolder holder);
 
     @CallSuper
-    public void onInitTitle(){
+    public void onInitLayout(){
         setBackGroundColor(getResources().getColor(R.color.colorThemePrimary));
         setBackValid();
-        if(getIntent().hasExtra("title")){
-            setTitle(getIntent().getStringExtra("title"));
+        if(getIntent().hasExtra(TITLE)){
+            setTitle(getIntent().getStringExtra(TITLE));
         }
     }
 
@@ -86,8 +93,9 @@ public abstract class ShareActivity extends HttpActivity {
      */
     public static void startAction(Activity activity, Class activityClass, String title, Bundle params,int requestCode){
         Intent intent=new Intent(activity,activityClass);
-        intent.putExtra("title",title);
-        intent.putExtra("params",params);
+        intent.putExtra(TITLE,title);
+        intent.putExtra(BUNDLE_PARAMS,params);
         activity.startActivityForResult(intent,requestCode);
     }
+
 }

@@ -40,9 +40,6 @@ public abstract class ShareFragment extends Fragment {//<VH extends BaseParentVi
             onBackPressed();
             initTitle();
         }
-//        if(rootView==null){
-//            rootView = inflater.inflate(R.layout.app_content, container, false);
-//        }
         ViewGroup parent = (ViewGroup) mViewHolder.rootView.getParent();
         if (parent != null)
             parent.removeView(mViewHolder.rootView);
@@ -52,7 +49,7 @@ public abstract class ShareFragment extends Fragment {//<VH extends BaseParentVi
     public abstract int resultLayoutId();
 
     private BaseParentViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup container) {
-        View rootView = inflater.inflate(R.layout.app_content, container, false);
+        rootView = inflater.inflate(R.layout.app_content, container, false);
         View childView = inflater.inflate(resultLayoutId(), container, false);
         mViewHolder = new BaseParentViewHolder(rootView);
         ((FrameLayout) mViewHolder.getView(R.id.appContent)).addView(childView);
@@ -60,11 +57,11 @@ public abstract class ShareFragment extends Fragment {//<VH extends BaseParentVi
     }
 
     public void initTitle() {
-        showTitleBar(true);
+        showTitleBar(false);
         setBackValid();
     }
 
-    public abstract void onBindData(BaseParentViewHolder viewHolder);
+    public abstract void onBindData(BaseParentViewHolder holder);
 
     protected void setBackValid() {
         this.setBackValid(0, null);

@@ -1,2 +1,24 @@
 <resources>
+    <string name="openMenu">打开菜单</string>
+    <string name="closeMenu">关闭菜单</string>
+
+    <string name="select_album">选择相册</string>
+    <string name="select_image">选择图片</string>
+    <string name="latest_image">最近照片</string>
+    <string name="photo_album">相册</string>
+
+    <string name="main_confirm">确定</string>
+    <string name="main_cancel">取消</string>
+    <string name="main_back">返回</string>
+
+    <!-- 刷新 -->
+    <string name="refresh_down_text">松开立即刷新</string>
+    <string name="refresh_progress_text">正在帮您刷新数据...</string>
+    <string name="refresh_release_text">下拉可以刷新</string>
+    <string name="pull_to_refresh_pull_label">下拉可以刷新</string>
+    <string name="pull_to_refresh_release_label">松开立即刷新</string>
+    <string name="pull_to_refresh_refreshing_label">正在帮您刷新数据...</string>
+    <string name="pull_to_refresh_footer_release_label">松开后加载</string>
+    <string name="pull_to_refresh_footer_pull_label">上拉加载更多</string>
+    <string name="pull_to_refresh_footer_refreshing_label">加载中\u2026</string>
 </resources>
